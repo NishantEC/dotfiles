@@ -1,0 +1,70 @@
+# ====================================================================
+# .zshrc — managed by chezmoi (~/dotfiles)
+# Edit the source file, then `chezmoi apply`. Or run `chezmoi edit ~/.zshrc`.
+# ====================================================================
+
+# --- Antigravity terminal compatibility -----------------------------
+if [[ -n "$ANTIGRAVITY_AGENT" ]]; then
+  export PS1='$ '
+  unset PROMPT_COMMAND
+  [[ -f "$HOME/.zsh_profile_antigravity.sh" ]] && source "$HOME/.zsh_profile_antigravity.sh"
+  return
+fi
+
+# --- Powerlevel10k instant prompt -----------------------------------
+# Must stay near the top. Anything requiring console input goes above.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# --- Prompt ---------------------------------------------------------
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# --- PATH (deduped automatically by `typeset -U`) -------------------
+typeset -U path
+path=(
+  /opt/homebrew/opt/curl/bin
+  $HOME/.local/bin
+  $HOME/.bun/bin
+  $HOME/Library/pnpm
+  $HOME/.antigravity/antigravity/bin
+  $HOME/.lmstudio/bin
+  $HOME/.codeium/windsurf/bin
+  $path
+  $HOME/.rvm/bin
+)
+export PATH
+
+# --- Tool initializers (guarded; no-op if tool not installed) -------
+[[ -x "$HOME/.local/bin/mise" ]] && eval "$($HOME/.local/bin/mise activate zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+export BUN_INSTALL="$HOME/.bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+export PNPM_HOME="$HOME/Library/pnpm"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && command -v kiro >/dev/null && \
+  . "$(kiro --locate-shell-integration-path zsh)"
+
+# --- Generic aliases ------------------------------------------------
+alias startredis="brew services start redis"
+alias stopredis="brew services stop redis"
+alias redisinfo="brew services info redis"
+alias mysqlstart="service mysql start"
+alias mysqlroot="mysql -u root -p"
+alias cdd="cd $HOME/Documents && cd"
+
+# --- Plugins (autosuggestions, then syntax-highlighting LAST) -------
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# --- Local-only files (NOT in the dotfiles repo) --------------------
+# Work-specific aliases — kept out of the public repo:
+[[ -f "$HOME/.config/zsh/work.zsh" ]] && source "$HOME/.config/zsh/work.zsh"
+# Tokens and other secrets:
+[[ -f "$HOME/.config/zsh/secrets.zsh" ]] && source "$HOME/.config/zsh/secrets.zsh"

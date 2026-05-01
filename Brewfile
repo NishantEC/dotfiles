@@ -1,0 +1,7 @@
+brew "chezmoi"
+brew "gh"
+brew "powerlevel10k"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+cask "claude-code"
+cask "docker-desktop"

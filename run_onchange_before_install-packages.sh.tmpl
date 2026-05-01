@@ -1,0 +1,15 @@
+#!/bin/bash
+# Bootstraps brew packages from the Brewfile.
+# Re-runs automatically whenever the Brewfile content changes (chezmoi
+# tracks the rendered script's hash, and the Brewfile is embedded below).
+
+set -euo pipefail
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "brew not found; install Homebrew first: https://brew.sh" >&2
+  exit 1
+fi
+
+brew bundle --file=/dev/stdin <<'EOF'
+{{ include "Brewfile" }}
+EOF

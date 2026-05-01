@@ -1,0 +1,11 @@
+# chezmoi runtime state (per-machine, not config)
+.chezmoistate
+.chezmoiremove
+
+# macOS noise
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+*.swp
