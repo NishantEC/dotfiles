@@ -1,0 +1,7 @@
+# Files in this repo that should NOT be deployed to $HOME.
+# (chezmoi deploys every file at the source root by default; this opts out.)
+README.md
+Brewfile
+examples
+examples/**
+.gitignore

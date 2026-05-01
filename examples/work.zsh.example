@@ -1,0 +1,30 @@
+# Work / employer-specific aliases.
+#
+# Copy to ~/.config/zsh/work.zsh and customize. Once present, ~/.zshrc will
+# source it automatically. This file is intentionally NOT tracked in the
+# public dotfiles repo because employer/project names should not be public.
+#
+# After copying, lock the perms: chmod 600 ~/.config/zsh/work.zsh
+
+# --- Project navigation ---------------------------------------------
+# alias myproj="cd $HOME/Documents/my-project"
+# alias myproj-fe="cd $HOME/Documents/my-project/frontend && yarn start"
+# alias myproj-be="cd $HOME/Documents/my-project/backend"
+
+# --- Framework shortcuts (Django example) ---------------------------
+# alias mm="python manage.py makemigrations --settings=app.local_settings"
+# alias mig="python manage.py migrate --settings=app.local_settings"
+# alias rs="python manage.py runserver 0.0.0.0:8000 --settings=app.local_settings"
+# alias dshell="python manage.py shell --settings=app.local_settings"
+
+# --- Virtualenv / version manager activation ------------------------
+# alias workenv="pyenv activate my-project"
+# alias nodework="nvm use 18"
+
+# --- Editor shortcuts -----------------------------------------------
+# alias edit-myproj="code $HOME/Documents/my-project"
+
+# --- Test shortcuts -------------------------------------------------
+# alias t="yarn test"
+# alias tw="yarn test --watch"
+# alias tci="yarn test:ci"
